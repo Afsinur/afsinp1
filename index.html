@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        background: #303030;
+      }
+
+      #app {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+      }
+
+      /*imagesWraperDiv*/
+      .imagesWraperDiv {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 50px;
+      }
+
+      /*imgCotainer*/
+      .imgCotainer {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        user-select: none;
+      }
+
+      .imgCotainer > img {
+        width: 500px;
+        object-fit: contain;
+        padding: 50px;
+        user-select: none;
+      }
+
+      /*directionCotainer*/
+      .directionCotainer {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .directionCotainer > button {
+        overflow: hidden;
+        position: relative;
+        padding: 20px;
+        border: none;
+        cursor: pointer;
+        transition: 150ms ease-in-out;
+        transition-property: background, color, padding, transform;
+        border-radius: 20px;
+        background: rgba(0, 0, 0, 0.1);
+        color: #c8c8c8;
+        font-size: xx-large;
+        user-select: none;
+      }
+
+      .directionCotainer > button:nth-child(1) {
+        visibility: hidden;
+      }
+
+      .directionCotainer > button:hover {
+        background: rgba(0, 0, 0, 0.25);
+        color: #fff;
+        padding: 40px;
+      }
+
+      .press {
+        animation: press 150ms ease-in-out 1;
+      }
+
+      .rightBTNspan {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.301);
+        padding: 50px;
+        border-radius: 50%;
+        visibility: hidden;
+      }
+
+      .leftBTNspan {
+        position: absolute;
+        padding: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.301);
+        visibility: hidden;
+      }
+
+      .speadout {
+        animation: speadout 150ms ease-in-out 1;
+      }
+
+      .load_ {
+        padding: 50px;
+        border: 5px solid rgba(255, 255, 255, 0.5);
+        border-top: 5px solid rgba(255, 255, 255, 0.055);
+        border-radius: 50%;
+        align-self: center;
+        visibility: hidden;
+      }
+
+      .load_animate {
+        visibility: visible;
+        animation: load_ 800ms ease-in-out infinite forwards;
+      }
+
+      /*small_preview*/
+      .wrapper_small_preview {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .small_preview {
+        position: relative;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        transition: 150ms ease-in-out;
+        transition-property: transform;
+      }
+
+      .small_preview img {
+        width: 50px;
+        margin: 10px;
+        cursor: pointer;
+        object-fit: contain;
+        user-select: none;
+        border: 2px solid transparent;
+      }
+
+      @media screen and (max-width: 500px) {
+        .imagesWraperDiv {
+          padding: 0px;
+        }
+
+        .imgCotainer > img {
+          width: 250px;
+          padding: 25px;
+        }
+
+        .small_preview img {
+          width: 25px;
+        }
+
+        .small_preview {
+          padding: 5px;
+        }
+
+        .small_preview img {
+          margin: 5px;
+        }
+      }
+
+      .small_preview img:first-child {
+        border: 2px solid rgba(255, 255, 255, 0.8);
+      }
+
+      @keyframes load_ {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes press {
+        0% {
+          transform: scale(0.85);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes speadout {
+        0% {
+          visibility: visible;
+          transform: scale(1.5);
+          background: rgba(255, 255, 255, 0.25);
+        }
+        100% {
+          visibility: visible;
+          transform: scale(2);
+          background: rgba(255, 255, 255, 0.1);
+        }
+        100% {
+          visibility: visible;
+          transform: scale(2.5);
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="imagesWraperDiv">
+        <div class="imgCotainer"></div>
+
+        <div class="directionCotainer">
+          <button class="leftBTN">
+            <
+            <span class="leftBTNspan"></span>
+          </button>
+
+          <div class="load_ load_animate"></div>
+
+          <button class="rightBTN">
+            >
+            <span class="rightBTNspan"></span>
+          </button>
+
+          <div class="wrapper_small_preview">
+            <div class="small_preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //query selectors
+      const imgCotainer = document.querySelector(".imgCotainer");
+      const rightBTN = document.querySelector(".rightBTN");
+      const leftBTN = document.querySelector(".leftBTN");
+      const rightBTNspan = document.querySelector(".rightBTNspan");
+      const leftBTNspan = document.querySelector(".leftBTNspan");
+      const load_ = document.querySelector(".load_");
+      const small_preview = document.querySelector(".small_preview");
+
+      //variables
+      let counter_ = 0;
+      const transition_ = 500;
+      const loader_time_ = 100;
+      const online_ = true;
+
+      //image storage
+      const imgStorage = [
+        { src: "2c272f5ef40b229dfe5348bdaa6b40db.jpg" },
+        { src: "3d_balls_rendering_lines_105159_1366x768.jpg" },
+        { src: "3d_blue_square_black_32_1366x768.jpg" },
+        { src: "3d_fruit_glass_95074_1366x768.jpg" },
+        { src: "3d_shape_surface_many_16044_1366x768.jpg" },
+        { src: "3d_spiral_glass_green_white_34_1366x768.jpg" },
+        { src: "4k-wallpaper-architectural-design-architecture-2627063.jpg" },
+        {
+          src: "36-367281_awesome-bismillah-wallpaper-bismillah-hd-images-for-presentation.jpg",
+        },
+        {
+          src: "359-3591548_windows-8-wallpapers-flower-windows-8-wallpaper-themes.jpg",
+        },
+        { src: "186902.jpg" },
+        { src: "allium_bloom_purple_142933_1366x768.jpg" },
+        { src: "andreas-haslinger-rO6_UsmgAv0-unsplash.jpg" },
+        {
+          src: "autumn_water_transparent_bottom_trees_branches_sky_blue_clearly_brightly_62817_1366x768.jpg",
+        },
+        {
+          src: "beach_sand_road_traces_fence_sun_evening_sky_decline_clouds_8195_1366x768.jpg",
+        },
+        { src: "beach_sea_rocks_141675_1366x768.jpg" },
+      ];
+
+      const qsnMRK_img = { src: `qsnMRK.jpg` };
+
+      //load 1 image first
+      if (online_) {
+        imgStorage.forEach((itm, i) => {
+          if (i === 0) {
+            imgCotainer.innerHTML += `<img src="https://netlifyimgstorage.netlify.app/${itm.src}" alt="${itm.src}" />`;
+            small_preview.innerHTML += `<img src="https://netlifyimgstorage.netlify.app/${itm.src}" alt="${itm.src}" />`;
+          } else {
+            imgCotainer.innerHTML += `<img src="https://netlifyimgstorage.netlify.app/${qsnMRK_img.src}" alt="${qsnMRK_img.src}" />`;
+            small_preview.innerHTML += `<img src="https://netlifyimgstorage.netlify.app/${qsnMRK_img.src}" alt="${qsnMRK_img.src}" />`;
+          }
+        });
+      } else {
+        imgStorage.forEach((itm, i) => {
+          if (i === 0) {
+            imgCotainer.innerHTML += `<img src="img/${itm.src}" alt="${itm.src}" />`;
+            small_preview.innerHTML += `<img src="img/${itm.src}" alt="${itm.src}" />`;
+          } else {
+            imgCotainer.innerHTML += `<img src="img/${qsnMRK_img.src}" alt="${qsnMRK_img.src}" />`;
+            small_preview.innerHTML += `<img src="img/${qsnMRK_img.src}" alt="${qsnMRK_img.src}" />`;
+          }
+        });
+      }
+
+      const firstImgClientWidth = imgCotainer.children[0].clientWidth;
+      const small_previewImgWidth = small_preview.children[0].clientWidth;
+      imgCotainer.style.width = `${firstImgClientWidth}px`;
+      small_preview.style.width = `${firstImgClientWidth}px`;
+
+      let borderParsed = parseInt(
+        getComputedStyle(small_preview.children[0]).border
+      );
+      let marginParsed = parseInt(
+        getComputedStyle(small_preview.children[0]).margin
+      );
+      let mulipliedBorderParsed = borderParsed * 2;
+      let mulipliedMarginParsed = marginParsed * 2;
+      let totalBorder_Margin = mulipliedBorderParsed + mulipliedMarginParsed;
+      let totalSmallImgWidth = small_previewImgWidth + totalBorder_Margin;
+
+      //loaded counter storage
+      const loadedCounter = [0];
+      let currentCounter = 0;
+      let smallSlider = 0;
+
+      //functions
+      const load_End = () => {
+        if (online_) {
+          setTimeout_loader();
+        }
+      };
+
+      const focusSmallImg = (i, singleSlide) => {
+        let border_1 = `2px solid rgba(255, 255, 255, 0.8)`;
+
+        small_preview.children[i].style.border = border_1;
+
+        small_preview.style.transform = `translateX(-${
+          totalSmallImgWidth * singleSlide
+        }px)`;
+
+        if (online_) {
+          small_preview.children[
+            i
+          ].src = `https://netlifyimgstorage.netlify.app/${imgStorage[counter_].src}`;
+          small_preview.children[
+            i
+          ].alt = `https://netlifyimgstorage.netlify.app/${imgStorage[counter_].src}`;
+        } else {
+          small_preview.children[i].src = `img/${imgStorage[counter_].src}`;
+          small_preview.children[i].alt = `img/${imgStorage[counter_].src}`;
+        }
+      };
+
+      const unFocusSmallImg = (i) => {
+        let border_2 = `2px solid transparent`;
+
+        small_preview.children[i].style.border = border_2;
+      };
+
+      const setTimeout_loader = () => {
+        setTimeout(() => {
+          removeLoad_();
+        }, loader_time_);
+      };
+
+      const small_preview_handler = (e) => {
+        if (e.target.parentNode.className === `small_preview`) {
+          Array.from(e.target.parentNode.children).forEach((itm, i) => {
+            if (itm === e.path[0]) {
+              counter_ = i;
+              commonSlide();
+              focusSmallImg(i);
+            } else {
+              unFocusSmallImg(i);
+            }
+          });
+        }
+      };
+
+      const addLoad_ = () => {
+        load_.classList.add(`load_animate`);
+      };
+
+      const removeLoad_ = () => {
+        load_.classList.remove(`load_animate`);
+      };
+
+      const removeSpeadout = (e) => {
+        e.target.classList.remove(`speadout`);
+      };
+
+      const removePress = (e) => {
+        e.target.classList.remove(`press`);
+      };
+
+      const commonSlide = (e, e1, e2) => {
+        let absX, absY;
+
+        if (e != null && e1 != null) {
+          e.classList.add(`press`);
+          e.children[0].classList.add(`speadout`);
+          absX = Math.abs(e1.offsetX);
+          absY = Math.abs(e1.offsetY);
+        }
+
+        if (e2 === 1) {
+          rightBTNspan.style.left = `${absX - rightBTNspan.clientWidth / 2}px`;
+
+          rightBTNspan.style.top = `${absY - rightBTNspan.clientHeight / 2}px`;
+        } else if (e2 === 0) {
+          leftBTNspan.style.left = `${absX - leftBTNspan.clientWidth / 2}px`;
+
+          leftBTNspan.style.top = `${absY - leftBTNspan.clientHeight / 2}px`;
+        }
+
+        if (counter_ <= imgStorage.length - 1 && counter_ >= 0) {
+          if (counter_ == imgStorage.length - 1) {
+            rightBTN.style.visibility = `hidden`;
+          } else if (counter_ === 0) {
+            leftBTN.style.visibility = `hidden`;
+          } else {
+            rightBTN.style.visibility = `visible`;
+            leftBTN.style.visibility = `visible`;
+          }
+
+          loadedCounter.forEach(() => {
+            if (!loadedCounter.includes(counter_)) {
+              loadedCounter.push(counter_);
+
+              if (online_) {
+                addLoad_();
+              }
+
+              imgCotainer.children[counter_].addEventListener("load", load_End);
+
+              if (online_) {
+                imgCotainer.children[
+                  counter_
+                ].src = `https://netlifyimgstorage.netlify.app/${imgStorage[counter_].src}`;
+                imgCotainer.children[
+                  counter_
+                ].alt = `${imgStorage[counter_].src}`;
+              } else {
+                imgCotainer.children[
+                  counter_
+                ].src = `img/${imgStorage[counter_].src}`;
+                imgCotainer.children[
+                  counter_
+                ].alt = `${imgStorage[counter_].src}`;
+              }
+            }
+          });
+
+          imgCotainer.style.transition = `${transition_}ms ease-in-out`;
+          imgCotainer.style.transform = `translateX(-${
+            firstImgClientWidth * counter_
+          }px)`;
+        } else {
+          if (counter_ >= imgStorage.length - 1) {
+            counter_ = imgStorage.length - 1;
+          } else if (counter_ <= 0) {
+            counter_ = 0;
+          }
+        }
+
+        Array.from(small_preview.children).forEach((itm, i) => {
+          if (counter_ === i) {
+            if (currentCounter > counter_ && smallSlider > 0) {
+              currentCounter = counter_;
+              smallSlider--;
+            } else if (currentCounter < counter_ && counter_ > 1) {
+              currentCounter = counter_;
+              smallSlider++;
+            }
+
+            focusSmallImg(i, smallSlider);
+          } else {
+            unFocusSmallImg(i);
+          }
+        });
+      };
+
+      const slideRight = (e) => {
+        counter_++;
+        commonSlide(e.target, e, 1);
+      };
+
+      const slideLeft = (e) => {
+        counter_--;
+        commonSlide(e.target, e, 0);
+      };
+
+      //event handlers
+      rightBTN.addEventListener("click", slideRight);
+      leftBTN.addEventListener("click", slideLeft);
+      rightBTN.addEventListener("animationend", removePress);
+      leftBTN.addEventListener("animationend", removePress);
+      rightBTNspan.addEventListener("animationend", removeSpeadout);
+      leftBTNspan.addEventListener("animationend", removeSpeadout);
+      small_preview.addEventListener("click", small_preview_handler);
+
+      //remove load
+      if (online_) {
+        setTimeout_loader();
+      } else {
+        removeLoad_();
+      }
+    </script>
+  </body>
+</html>
